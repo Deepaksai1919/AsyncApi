@@ -1,0 +1,58 @@
+{
+  "components": {
+    "schemas": {"MessagePayload": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "title": "The Message Schema",
+      "definitions": {},
+      "required": [
+        "msgFrom",
+        "msgTo",
+        "payload"
+      ],
+      "properties": {
+        "payload": {
+          "default": "Hello",
+          "examples": ["Hello"],
+          "type": "string",
+          "title": "The payload Schema",
+          "$id": "#/properties/payload"
+        },
+        "msgTo": {
+          "default": "Receiver",
+          "examples": ["Sai"],
+          "type": "string",
+          "title": "The msgTo Schema",
+          "$id": "#/properties/msgTo"
+        },
+        "msgFrom": {
+          "default": "Sender",
+          "examples": ["Deepak"],
+          "type": "string",
+          "title": "The msgFrom Schema",
+          "$id": "#/properties/msgFrom"
+        }
+      },
+      "$id": "http://example.com/root.json"
+    }},
+    "messages": {"Message": {
+      "payload": {"$ref": "#/components/schemas/MessagePayload"},
+      "schemaFormat": "application/vnd.aai.asyncapi+json;version=2.0.0",
+      "contentType": "application/json"
+    }}
+  },
+  "channels": {"app/send/message": {"publish": {"message": {"$ref": "#/components/messages/Message"}}}},
+  "asyncapi": "2.0.0",
+  "info": {
+    "x-application-class": "unspecified",
+    "title": "Sender",
+    "x-view": "provider",
+    "version": "0.0.1"
+  },
+  "servers": {
+    "dev": {
+      "url": "ws://192.168.99.100:80",
+      "protocol": "ws"
+    }
+  }
+}
